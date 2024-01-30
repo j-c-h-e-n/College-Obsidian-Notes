@@ -18,12 +18,12 @@ In different languages, the behaviors between types do not transfer over to othe
 ---
 # Functional Programming
 A programming paradigm based on functions.
-#### Functional Programming is:
+### Functional Programming is:
 - Typically used interchangeably with language features.
 - Many languages have overlap.
 - Python is imperative, object oriented, and functional.
 - OCaml is imperative, object oriented, and functional.
-#### Features of Functional Languages:
+### Features of Functional Languages:
 - Immutable state (*you cannot change the values of any variable once set*).
 - Declarative programming.
 - Referential transparency.
