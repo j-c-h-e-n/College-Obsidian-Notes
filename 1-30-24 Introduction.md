@@ -7,6 +7,7 @@ In different languages, the behaviors between types do not transfer over to othe
 | Java | int | boolean | 7 - int | N/A |
 | C | int | N/A | 7 - int | 1 - int |
 
+##### Vocabulary:
 - **Type Checking:** The process of determining a variable's type. 
 - **Dynamic Typing:** Type checking is performed at runtime (*Python*). 
 - **Static Typing:** Type checking is done at compile (*C, OCaml*). 
@@ -16,3 +17,20 @@ In different languages, the behaviors between types do not transfer over to othe
 	- "x can mutate and change the type of data it holds"
 ---
 # Functional Programming
+A programming paradigm based on functions.
+#### Functional Programming is:
+- Typically used interchangeably with language features.
+- Many languages have overlap.
+- Python is imperative, object oriented, and functional.
+- OCaml is imperative, object oriented, and functional.
+#### Features of Functional Languages:
+- Immutable state (*you cannot change the values of any variable once set*).
+- Declarative programming.
+- Referential transparency.
+- Non-imperatively to minimize side-effects. Functions have consistent outputs for every input.
+- Builds "correct" programs due to the precise nature of functional languages.
+##### Vocabulary:
+- **Programming Paradigm:** Classification of programming approaches based on code behavior.
+- **Program State:** The state of the machine at any given time.
+	- Typically described as the contents of variables.
+- **Imperative:** State is mutable, change or destructive.
