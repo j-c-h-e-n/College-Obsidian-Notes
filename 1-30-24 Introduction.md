@@ -1,3 +1,4 @@
+**Note: We use OCaml for our introduction to functional programming**
 # Introduction
 We are used to "typing" in programming (int, double, boolean, etc.). 
 In different languages, the behaviors between types do not transfer over to other languages as shown below with Java and C.
@@ -13,7 +14,7 @@ In different languages, the behaviors between types do not transfer over to othe
 - **Static Typing:** Type checking is done at compile (*C, OCaml*). 
 - **Manifest (Explicit) Typing:** Explicitly telling the compiler the type of new variables (*int x = 3*).
 	- "int x can only hold int now and forever"
-- **Latent (Implicit) Typing:** Not needing to provide a type for a variable (*Python does this*). 
+- **Latent (Implicit) Typing:** Not needing to provide a type for a variable (*Python does this). 
 	- "x can mutate and change the type of data it holds"
 ---
 # Functional Programming
@@ -46,6 +47,25 @@ Notice how we walk through every detail in creating what we need.
 results = [x for x in arr if x % 2 == 0]
 ```
 Notice how we tell and get what we want without going into detail.
+### Side Effects and Immutability:
+One of the goals of functional programming is to minimize or even remove the possibilities of side effects. <br>
+For example, the following Python code:
+```
+#side_effects.py
+count = 0
+def f(node):
+	global count
+	node.data = count
+	count += 1
+	return count
+```
+The side effect here is the manipulation of "count". We normally consider this a feature and a just a way of programming in other languages, but functional programming wants to treat functions as mathematical equivalences, meaning only local variables are modified. Thus the following should be true:
+$$f(x) + f(x) + f(x) = 3f(x)$$
+However according to the python code:
+$$f(x) + f(x) + f(x) = 1 + 2 + 3$$when we expect: $$f(x) = 1$$
+$$3*f(x) = 3$$
+In more complex projects, side effects such as these makes it harder and harder to predict and debug our code. To prevent this, OCaml makes ALL variables immutable to maintain referential transparency.
+
 ### Functional Programming is:
 - Typically used interchangeably with language features.
 - Many languages have overlap.
@@ -58,9 +78,11 @@ Notice how we tell and get what we want without going into detail.
 - Non-imperatively to minimize side-effects. Functions have consistent outputs for every input.
 - Builds "correct" programs due to the precise nature of functional languages.
 ##### Vocabulary:
+- **Side Effect:** When non-local variables are modified.
+- **Referential Transparency:** The ability to replace an expression or a function with its value and still obtain the same output.
 - **Programming Paradigm:** Classification of programming approaches based on code behavior.
 - **Program State:** The state of the machine at any given time.
 	- Typically described as the contents of variables.
-- **Imperative:** State is mutable, change or destructive.
+- **Imperative:** State is mutable, changing or destructive.
 ---
 
