@@ -62,7 +62,9 @@ def f(node):
 The side effect here is the manipulation of "count". We normally consider this a feature and a just a way of programming in other languages, but functional programming wants to treat functions as mathematical equivalences, meaning only local variables are modified. Thus the following should be true:
 $$f(x) + f(x) + f(x) = 3f(x)$$
 However according to the python code:
-$$f(x) + f(x) + f(x) = 1 + 2 + 3$$when we expect: $$f(x) = 1$$
+$$f(x) + f(x) + f(x) = 1 + 2 + 3$$
+when we expect: 
+$$f(x) = 1$$
 $$3*f(x) = 3$$
 In more complex projects, side effects such as these makes it harder and harder to predict and debug our code. To prevent this, OCaml makes ALL variables immutable to maintain referential transparency.
 
