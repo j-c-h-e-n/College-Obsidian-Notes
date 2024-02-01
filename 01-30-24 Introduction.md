@@ -20,7 +20,7 @@ In different languages, the behaviors between types do not transfer over to othe
 # Functional Programming
 A programming paradigm based on functions. <br> Wikipedia states:
 >Functional programming is a programming paradigm where programs are constructed by applying and composing functions.
-### Declarative vs Imperative
+## Declarative vs Imperative
 In a program that finds even numbers in a list, an imperative solution would:
 - Make an empty list called results.
 - Divide the item by 2 and look at the remainder.
@@ -47,7 +47,7 @@ Notice how we walk through every detail in creating what we need.
 results = [x for x in arr if x % 2 == 0]
 ```
 Notice how we tell and get what we want without going into detail.
-### Side Effects and Immutability:
+## Side Effects and Immutability:
 One of the goals of functional programming is to minimize or even remove the possibilities of side effects. <br>
 For example, the following Python code:
 ```
@@ -68,12 +68,12 @@ $$f(x) = 1$$
 $$3*f(x) = 3$$
 In more complex projects, side effects such as these makes it harder and harder to predict and debug our code. To prevent this, OCaml makes ALL variables immutable to maintain referential transparency.
 
-### Functional Programming is:
+## Functional Programming is:
 - Typically used interchangeably with language features.
 - Many languages have overlap.
 - Python is imperative, object oriented, and functional.
 - OCaml is imperative, object oriented, and functional.
-### Features of Functional Languages:
+## Features of Functional Languages:
 - Immutable state (*you cannot change the values of any variable once set*).
 - Declarative programming.
 - Referential transparency.
