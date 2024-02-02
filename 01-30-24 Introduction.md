@@ -31,7 +31,7 @@ A declarative solution would:
 - Return those values
 
 We will use Python to highlight the differences:
-```
+```python
 #imperative.py
 def evens(arr):
 	results = []
@@ -50,7 +50,7 @@ Notice how we tell and get what we want without going into detail.
 ## Side Effects and Immutability
 One of the goals of functional programming is to minimize or even remove the possibilities of side effects. <br>
 For example, the following Python code:
-```
+```python
 #side_effects.py
 count = 0
 def f(node):
