@@ -16,7 +16,6 @@ In different languages, the behaviors between types do not transfer over to othe
 	- "int x can only hold int now and forever"
 - **Latent (Implicit) Typing:** Not needing to provide a type for a variable (*Python does this). 
 	- "x can mutate and change the type of data it holds"
----
 # Functional Programming
 A programming paradigm based on functions. <br> Wikipedia states:
 >Functional programming is a programming paradigm where programs are constructed by applying and composing functions.
