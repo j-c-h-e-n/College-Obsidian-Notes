@@ -1,0 +1,7 @@
+- Distributions are great but the x-axis usually becomes unreadable.
+	- Great for continuous or ordinal data.
+	- Histograms.
+		- The main graph to create
+- Correlational graphs are good for comparisons between two variables.
+	- Very easy to see relations and also notice outliers.
+	- But also extremely easy to manipulate the visual aspects.
