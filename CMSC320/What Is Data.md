@@ -1,0 +1,21 @@
+Types of Data
+- Tabular data (spreadsheet formats)
+	- Surveys.
+	- Grades in class.
+	- Top artists. 
+- Timeseries
+	- Profits over time.
+- Geo Data
+	- Locations of subjects.
+- Dendrogram
+	- Family tree.
+- Images
+	- Image identification.
+	- Image creation.
+- Text
+	- Tweets
+- Audio
+- Video
+- Joint
+- Telemetry (wouldn't this be time series?)
+- 3D

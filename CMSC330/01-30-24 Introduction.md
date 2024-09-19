@@ -3,10 +3,10 @@
 We are used to "typing" in programming (int, double, boolean, etc.). 
 In different languages, the behaviors between types do not transfer over to other languages as shown below with Java and C.
 
-| Language | 3 | true | 3 + 4 | 10 && 4 |
-| --- | --- | --- | --- | --- |
-| Java | int | boolean | 7 - int | N/A |
-| C | int | N/A | 7 - int | 1 - int |
+| Language | 3   | true    | 3 + 4   | 10 && 4 |
+| -------- | --- | ------- | ------- | ------- |
+| Java     | int | boolean | 7 - int | N/A     |
+| C        | int | N/A     | 7 - int | 1 - int |
 
 ##### Vocabulary
 - **Type Checking:** The process of determining a variable's type. 

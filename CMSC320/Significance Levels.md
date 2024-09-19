@@ -1,0 +1,8 @@
+- AKA Alpha Value
+- Can we say something worked given a specific p-value?
+- Ex:
+	- If we get a p-value of .2, can we say it worked?
+- The significance level is a term used in scientific research to describe when to reject the null hypothesis. Often times it is .05 or .01.
+	- This gives us a quick way of describing whether or not it is likely an effect exists.
+- YOUR SIGNIFICANCE LEVEL SHOULD BE BASED ON THE OPPORTUNITIES AND THE ACTUAL IMPORTANCE IT HAS.
+	- A .05 significance level is absurd in certain situations, such as curing cancer. But it is acceptable for something such as a cold treatment.
