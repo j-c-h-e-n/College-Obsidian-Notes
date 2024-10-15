@@ -1,4 +1,4 @@
-Distributions are...
+  Distributions are...
 - Statistical function that gives the probability of a given outcome from an experiment.
 - Continuous, but large enough sample size converges to the right thing.
 
@@ -8,6 +8,11 @@ Distributions are...
 ## Normal Distribution (Gaussian)
 - Extremely common.
 - Data usually tends to trend towards a normal distribution.
+
+## Bimodal Distribution
+- A distribution with two (bi) distinct peaks within the graph.
+- Can be the result of two graphs overlaid on top or actual data that has two distinct peaks.
+- ![[Pasted image 20241008122148.png]]
 ## Poisson Distribution
 - A graph with the left compression, and a long right tail.
 - They have a parameter called `lambda` which represents the average rate.
