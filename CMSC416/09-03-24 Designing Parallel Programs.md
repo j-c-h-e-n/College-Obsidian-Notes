@@ -1,6 +1,6 @@
 # Designing Parallel Programs
 - *Decide* the serial algorithm first.
-	- The different models of data computation.[[08-29-24]]
+	- The different models of data computation.[[08-29-24 Intro]]
 		- SISD, SIMD, MIMD, SIMT, SPMD
 - *Data*: how to distribute data among threads/processes?
 	- Data locality: assignment of data to specific processes to minimize data movement.
