@@ -23,7 +23,7 @@
 ![[Pasted image 20240903162223.png]]
 
 $$
-A[i,j] = \dfrac{A[i,j] + A[i-1,j] + A[i,j - 1] + A[i, j + 1]}{5}
+A[i,j] = \dfrac{A[i,j] + A[i-1,j] + A[i + 1, j] + A[i,j - 1] + A[i, j + 1]}{5}
 $$
 - Computation for a 5-point stencil.
 - As these stencils gain more points, parallel computing is necessary for speed and efficiency.
