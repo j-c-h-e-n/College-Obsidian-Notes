@@ -3,18 +3,19 @@ GOOD TO KNOWS:
 - DO NOT RUN SUDO ON ZARATAN.
 - 
 # Shared Memory and OpenMP
-## Shared memory architecture
+## Architectures
 - All processors/cores can access all memory as a single address space.
 - Incredibly hard to do uniform memory access (complicated).
 	- Better to give each CPU their own and use bus interconnects.
 		- NUMA - Non-Uniform Memory Access
 	![[Pasted image 20240905153846.png]]
-## Distributed memory architecture
+### Distributed memory architecture
 - Groups of processors/cores have access to their local memory.
 - Writes in one group's memory have no effect on another group's memory.
+	- Processors in NUMA *CAN* access the memory associated with other processors.
 	![[Pasted image 20240905154206.png]]
 
-## Parallel programming models
+## Programming Models
 - Shared memory model: All threads have access to all of the memory.
 	- Runs within nodes.
 	- pthreads, OpenMP, CUDA.
@@ -26,7 +27,7 @@ GOOD TO KNOWS:
 	- Alternative solution when both forms are needed, to lessen complexity.
 	- MPI+OpenMP, Charm++ (SMP mode).
 
-## Shared memory programming
+### Shared memory programming
 - All entities (threads) have access to the entire address space.
 - Threads "communicate" or exchange data by directly accessing shared variables.
 - Programmer has to manage data conflicts.
@@ -43,12 +44,10 @@ GOOD TO KNOWS:
 - Programmer uses compiler directives and library routines to indicate parallel regions in the code and how to parallelize them.
 - Compiler converts code to multi-threaded code.
 - OpenMP uses a fork/join model of parallelism.
-
 ## Fork-join parallelism
 - Single flow of control
 - Primary thread spawns worker threads.
 	![[Pasted image 20240905160223.png]]
-
 ## Race Conditions when Threads Interact
 - Unintended sharing of data/variables can lead to race conditions.
 - Race condition: programs outcome depends on the scheduling order of threads.
@@ -57,7 +56,6 @@ GOOD TO KNOWS:
 - How can we prevent data races?
 	- Use synchronization, which can be expensive.
 	- Change how data is accessed to minimize the need for synchronization.
-
 ## OpenMP Pragmas
 - Pragma: a compiler directive in C or C++
 	- Mechanism to communicate with the compiler.
@@ -97,12 +95,10 @@ int main(int arc, char **argv)
 	return 0;
 }
 ```
-
 ## Parallel for execution
 - Primary thread creates worker threads
 - The OpenMP runtime distributes iterations of the loop to different threads.
 	![[Pasted image 20240905163241.png]]
-
 ## Number of threads
 - You can set it using this environment variable before executing the program:
 						`export OMP_NUM_THREADS=X`
