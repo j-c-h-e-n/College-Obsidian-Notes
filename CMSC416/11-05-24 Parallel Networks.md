@@ -101,16 +101,3 @@
 - Many heuristics to come up with a solution.
 - Can be done within a load balancing strategy.
 
-# Parallel Filesystem
-## When Do Parallel Programs Perform I/O?
-- Reading input datasets.
-- Writing numerical output.
-- Writing checkpoints.
-## Non-Parallel I/O
-- Designated process does I/O.
-- All processes send data to/receive data from that one process.
-- Not scalable.
-## Parallel Filesystem
-- Home directories and scratch space are typically on a parallel file system.
-- Mounted on all login and compute nodes.
-- Also referred to as I/O sub-system.
