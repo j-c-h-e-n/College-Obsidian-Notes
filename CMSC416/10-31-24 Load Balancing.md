@@ -62,7 +62,7 @@ $$Load Imbalance = \frac{maxload}{meanload}$$
 ## Work Stealing
 - Decentralized strategy where processes steal work from neighbors when they have no work.
 - Each process has a queue of work items.
-	- A process looks at other queues when there are no items remaining.
+   	- A process looks at other queues when there are no items remaining.
 - Implemented in Cilk, Cilk++, Cilk Plus, OpenCilk (general-purpose multithreaded parallel computed based on C).
 ## Considerations for Strategies
 - Communication-aware load balancing:

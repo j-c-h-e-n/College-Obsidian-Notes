@@ -1,4 +1,4 @@
-"An ML model you can explain to your grandparents"
+  "An ML model you can explain to your grandparents"
 - Outdated, but super simple. Not very good.
 - We use it as a building block for our stronger algorithms.
 - Super susceptible to outlier data since every single case is weighted the same in the tree.
