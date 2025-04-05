@@ -1,5 +1,5 @@
 We will learn: 
-- [[Decision Trees]] 
+- [[Fall24/CMSC320/Decision Trees]] 
 - Random forests
 - Neural Networks
 - Naive Bayes
