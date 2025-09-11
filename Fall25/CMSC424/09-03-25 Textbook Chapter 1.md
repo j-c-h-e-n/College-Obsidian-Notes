@@ -57,4 +57,56 @@ Databases provide users an abstract view of the data, hiding complexities and nu
 - Used to simplify user's interactions with the system by hiding complexities that they don't need to know about.
 
 ### 1.3.4 Instances and Schemas
-- 
+- The collection of information stored int eh database at a particular moment is called the instance.
+- The overall design of the database is called the database schema.
+
+## 1.4 Database Languages
+- Data-definition language (DDL): specifies the database schema.
+- Data-manipulation language (DML): used to query the database.
+### 1.4.1 DDL
+- A set of definitions used to describe the database schema.
+- Database systems implement integrity constraints that can be tested with minimal overhead.
+	- Domain constraints: A domain of possible values must be strictly associated with every attribute (int, float, char, string).
+	- Referential integrity: Ensuring that a value in one table/relation also appears in another relation. If not, reject action.
+	- Authorization: Enforcing tiers of interaction authorization
+### 1.4.2 The SQL Data-Definition Language
+```SQL
+create table department
+	(dept_name char(20),
+	building char(15),
+	budget numeric(12,2));
+```
+This defines the *department* table with the columns department_name, building, and numeric.
+
+### 1.4.3 Data-Manipulation Language
+- These enable users to access or manipulate data as organized by the appropriate data model.
+	- Retrieval
+	- Insertion
+	- Deletion
+	- Modification
+- Two types of DMLs:
+	- Procedural: requires a user to specify what data are needed and how to get it.
+	- Declarative (non-procedural): requires a user to specify what data are needed but WITHOUT specifying how to get it.
+### 1.4.4 The SQL Data-Manipulation Language
+- Non-procedural/Declarative.
+```SQL
+select instructor.name
+from instructor
+where instructor.dept_name = 'History';
+```
+- Retrieves the rows from instructor where the department name is 'History'.
+```SQL
+select instructor.ID, department.dept_name
+from instructor, department
+where instructor.depth_name = department.dept_name and 
+	department.budget > 95000;
+```
+- This retrieves the instructor ID and their department if their department's budget is over 95000.
+### 1.4.5 Database Access from Application Programs
+- Languages like Java, Python, and C/C++ have database accessing abilities to retrieve data for more complex analysis.
+
+## 1.5 Database Design
+## 1.6 Database Engine
+## 1.7 Database and Application Architecture
+## 1.8 Database Users and Administrators
+## 1.9 History of Database Systems
