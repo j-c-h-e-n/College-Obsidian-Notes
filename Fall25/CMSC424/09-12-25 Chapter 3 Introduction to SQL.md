@@ -21,10 +21,81 @@
 ## 3.2.1 Basic Types
 The SQL standard support a variety of built-in types, including:
 - char(n): A fixed-length character string with user-specified length n. The full form, character, can be used instead.
+	- If an attribute was defined as char(10) and a string "Hi" was stored, 8 blank spaces will be appended to make it 10 characters.
 - varchar(n): A variable-length character string with user-specified maximum length n. The full form, character varying, is equivalent.
 - int: An integer (a finite subset of the integers that is machine dependent). The full form, integer, is equivalent.
 - smallint: A small integer (a machine-dependent subset of the integer type).
-- numeric(p, d): A fixed-point number with user-specified precision. The number consists of p digits (plus a sign), and d of the p digits are to the right of th decimal point. Thus, numeric(3, 1) allows 44.5 to be stored exactly, but neither 444.5 nor 0.32 can be stored exactly in a field of this type.
+- numeric(p, d): A fixed-point number with user-specified precision. The number consists of p digits (plus a sign), and d of the p digits are to the right of the decimal point. Thus, numeric(3, 1) allows 44.5 to be stored exactly, but neither 444.5 nor 0.32 can be stored exactly in a field of this type.
 - real, double precision: Floating-point and double-precision floating-point numbers with machine-dependent precision.
 - float(n): A floating-point number with precision of at least n digits.
-- 
+- More types defined in Ch 4.5
+- Each type may also include a special value called *null*, the absence of data.
+## 3.2.2 Basic Schema Definition
+- SQL relations are defined using the `create table` command.
+```SQL
+create table department(
+	dept_name varchar(20),
+	building   varchar(15),
+	budget     numeric(12,2),
+	primary key (dept_name)
+);
+```
+- Creates a relation called department with 3 attributes.
+- General form:
+	- ![[Pasted image 20250914164603.png|200]]
+- Integrity-constraints:
+	- Primary key: `primary key (A1, A2, A3, ..., AN)` states that attributes A1, ..., AN form the primary keys for the relation. They must be non-null and unique.
+	- Foreign key: `foreign key (A1, A2, A3, ..., AN) references s` states that the values of the attributes must correspond to values of the same attributes in another relation s.
+	- Not null: not formatted in the normal integrity constraint location. Appended at the end of each attribute definition to enforce that the values for those attributes cannot be null.
+- `drop table r;` removes the relation r from the database.
+- `delete from r;` retains the relation r but removes all tuples (rows) from the relation, including its attributes (schema).
+- `alter table`: command that allows us to alter a relation's values.
+	- `alter table r add A D;` adds attribute A with definitions D to table r.
+	- `alter table r drop A;` removes attribute A (the entire column) from table r.
+# 3.3 Basic Structure of SQL Queries
+Basic structure consists of `select`, `from`, and `where`.
+## 3.3.1 Queries on a Single Relation
+- "Find the names of all instructors":
+	- `select name from instructor;`
+- "Find all unique names of all instructors":
+	- `select distinct name from instructor;`, keyword "distinct".
+- "Ensure all names, including duplicates, are listed":
+	- `select all name from instructor;`
+- `select` can also use arithmetic.
+	- `select ID, name, dept_name, salary*1.1, from instructor;`
+- "Find the names of all instructors in the Computer Science department who have salary greater than $70,000"
+	- `select name from instructor where dept_name = 'Comp. Sci.' and salary > 70000;`
+## 3.3.2 Queries on Multiple Relations
+```SQL
+select name, instructor.dept_name, building
+from instructor, department
+where instructor.dept_name = department.dept_name;
+```
+- Selects the name, instructor.dept_name, and building from instructor and department relations under the condition that the instrcutor.dept_name = department.dept_name in the tuple.
+- There's also nested queries but they evaluate outside-in but kind of recursively, bubbling the results up to the highest level.
+# 3.4 Additional Basic Operations
+
+# 3.9 Modification of the Database
+Going over how we ad, remove, or change information in SQL.
+## 3.9.1 Deletion
+- `delete from r where P;`
+- P is the predicate or condition and r is the relation.
+- Finds all tuples (t) in r for which P(t) is true, then removes them.
+- If `where` is omitted, then `delete from r` removes all tuples, not attributes.
+	- `delete from instructor where salary between 13000 and 15000;` removes tuples from instructor where salaries are between 13000 and 15000.
+	- `delete from instructor where dept_name in (select dept_name from department where building = 'Watson');` deletes dept_names from the instructor relation if they match with dept_names that come from the department relation where building = 'Watson'.
+	- `delete from instructor where salary < (select avg(salary) from instructor);`
+## 3.9.2 Insertion
+- `insert into course values ('CS-437', 'Database Systems', 'Comp. Sci.', 4);` Inserts one tuple into the course relation.
+- `insert into course(course_id, title, dept_name, credits) values ('CS-437', 'Datgabase Systems', 'Comp. Sci.', 4);` same as before just specified the relation schema.
+```SQL
+insert into instructor
+	select ID, name, dept_Name, 18000
+	from student
+	where dept_name = 'Music' and tot_cred > 144;
+```
+- This inserts the ID, name, dept_name, and 18000 from tuples in student where dept_name = 'Music' and tot_cred > 144 into the instructor relation. Converting these students into instructors.
+## 3.9.3 Updates
+If we want to change a value in a tuple without changing all values in the tuple, we use the update statement.
+- `update instructor set salary=salary*1.05;` updates all salaries by 1.05.
+![[Pasted image 20250914195315.png|250]]

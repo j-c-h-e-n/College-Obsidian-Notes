@@ -24,12 +24,12 @@
 # 2.3 Keys
 > A way to specify how tuples within a given relation are distinguished....
 > ..., no two tuples in a relation are allowed to have exactly the same value for all attributes.
-- Superkey: A set of one or more attributes that allows us to identify unique a tuple in the relation (NOTE, SINGULAR RELATION).
+- Superkey: A set of one or more attributes that allows us to identify unique a tuple in the relation (NOTE, SINGULAR RELATION). Can have nulls.
 	- Key word, these attributes must be unique, for example, IDs.
 	- If K is a superkey, then any superset of K is also a superkey.
-- Candidate keys: Superkeys but minimal. The simplest superkey in the set of all superkeys. Does not have a subset that can form a valid superkey.
+- Candidate keys: Superkeys but minimal. The simplest superkey in the set of all superkeys. Does not have a subset that can form a valid superkey. You *can* have nulls but that defeats the purpose.
 	- ex: SSN in the US
-- Primary key: A candidate key that has been chosen by a dev as the main form of identifying tuples within a relation.
+- Primary key: A candidate key that has been chosen by a dev as the main form of identifying tuples within a relation. CANNOT HAVE NULLS
 	- The designation of a key also introduces a constraint in database modeling. So they're also known as primary key constraints.
 - Foreign key: A primary key in attributes $A$ in relation $r_1$ that also is found in $B$  in $r_2$. 
 - Foreign-key constraint: A constraint from attribute(s) $A$ of $r_1$ to the primary key $B$ of relation $r_2$ states that on any database instance, the value of each tuple for $A$ in $r_1$ must also be the same values for $B$ in $r_2$.
