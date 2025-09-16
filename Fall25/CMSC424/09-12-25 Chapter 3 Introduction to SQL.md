@@ -74,7 +74,36 @@ where instructor.dept_name = department.dept_name;
 - Selects the name, instructor.dept_name, and building from instructor and department relations under the condition that the instrcutor.dept_name = department.dept_name in the tuple.
 - There's also nested queries but they evaluate outside-in but kind of recursively, bubbling the results up to the highest level.
 # 3.4 Additional Basic Operations
-
+## 3.4.1 The Rename Operation (as)
+- Allows us to rename the attributes of a result relation when we use `select`.
+	- Handles the niche case of when we use an arithmetic expression in the select clause, since the resulting relation has no name.
+```SQL
+select name as instructor_name, course_id
+from instructor, teaches
+where instructor.ID = teaches.ID
+```
+- Replaces the attribute `name` with `instructor_name`.
+```SQL
+select T.name, S.course_id
+from instructor as T, teaches as S
+where T.ID = S.ID
+```
+- Replaces instructor as T and teaches as S and allows the reference of these relations as T and S.
+	- T and S are known as a "correlation name" in SQL. Also known as "table alias", "correlation variable", or "tuple variable".
+- We can also run these without the `as` keyword.
+## 3.4.2 String Operations
+- Strings in SQL are denoted with single quotes.
+	- 'Computer'
+- Single quote characters that are part of the string can be specified using *two*single quotes.
+	- 'It''s right'
+- The SQL standard states that strings are case sensitive, but some implementations aren't. Totally up to system settings.
+- Functions:
+	- String concatenation uses ||.
+	- Convert to upper: **upper**(s).
+	- Convert to lower: **lower**(s).
+	- String concatenation with concat('string', 'string').
+	- 
+- 
 # 3.9 Modification of the Database
 Going over how we ad, remove, or change information in SQL.
 ## 3.9.1 Deletion
