@@ -102,7 +102,53 @@ where T.ID = S.ID
 	- Convert to upper: **upper**(s).
 	- Convert to lower: **lower**(s).
 	- String concatenation with concat('string', 'string').
-	- 
+- Pattern matching using the `like` operator:
+	- `%` matches any substring.
+		- `Intro%` matches any string beginning with 'Intro'.
+	- `_` matches single characters.
+		- `___` matches strings of exactly 3 characters.
+	- If your string contains the `%` and `_` special characters you can use the `escape` keyword to define an escape character.
+		- `like 'ab\%cd%' escape '\'` matches all strings beginning with "ab%cd". Note % is captured by the defined escape symbol.
+## 3.4.3 Attribute Specification in the Select Clause (\*)
+- The `*` symbol selects all attributes.
+```SQL
+select intructor.*
+from instructor, teaches
+where indstructor.ID = teaches.iD
+```
+## 3.4.4 Ordering the Display of Tuples (order by)
+```SQL
+select name
+from instructor
+where dept_name = 'Physics'
+order by salary desc, name asc;
+```
+- The order by operation here sorts the name column items in descending order by salary. If there is collision, they are sorted in ascending order by name.
+## 3.4.5 Where-Clause Predicates
+- We can use `between`, and `not between` operators for specificity.
+```SQL
+select name
+from instructor
+where salary between 90000 and 100000;
+```
+Is better than:
+```SQL
+select name
+from instructor
+where salary <= 100000 and salary >= 90000;
+```
+# 3.5 Set Operations
+- SQL provides `union`, `intersect`, and `except` operations for sets.
+## 3.5.1 The Union Operation (union)
+```SQL
+(select course_id
+from section
+where semester = 'Fall' and year=2017)
+union
+(select course_id
+from section
+where semester = 'Spring' and year=2018);
+```
 - 
 # 3.9 Modification of the Database
 Going over how we ad, remove, or change information in SQL.
@@ -116,7 +162,7 @@ Going over how we ad, remove, or change information in SQL.
 	- `delete from instructor where salary < (select avg(salary) from instructor);`
 ## 3.9.2 Insertion
 - `insert into course values ('CS-437', 'Database Systems', 'Comp. Sci.', 4);` Inserts one tuple into the course relation.
-- `insert into course(course_id, title, dept_name, credits) values ('CS-437', 'Datgabase Systems', 'Comp. Sci.', 4);` same as before just specified the relation schema.
+- `insert into course(course_id, title, dept_name, credits) values ('CS-437', 'Database Systems', 'Comp. Sci.', 4);` same as before just specified the relation schema.
 ```SQL
 insert into instructor
 	select ID, name, dept_Name, 18000
