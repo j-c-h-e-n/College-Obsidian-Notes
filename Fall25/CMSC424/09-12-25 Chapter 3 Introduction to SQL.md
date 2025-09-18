@@ -149,6 +149,58 @@ union
 from section
 where semester = 'Spring' and year=2018);
 ```
+- Does the equivalent of just a union between two sets.
+## 3.5.2 The Intersect Operation (intersect)
+```SQL
+(select course_id
+from section
+where semester = 'Fall' and year = 2017)
+intersect
+(select course_id
+from section
+where semester = 'Spring' and year = 2018);
+```
+- Does the equivalent of an intersection between two sets. Only returns elements that appear in both sets.
+## 3.5.3 The Except Operation (except)
+```SQL
+(select course_id
+from section
+where semester = 'Fall' and year = 2017)
+except
+(select course_id
+from section
+where semester = 'Spring' and year = 2018);
+```
+- Does the equivalent to set difference. Only returns elements that are in the first input and not in the second input.
+# 3.6 Null Values
+- Special value but introduces some headaches.
+- The result of any arithmetic expression with null is always null.
+- "unknown" is the truth value of null. So they are basically the same but you use "unknown" in boolean evaluations.
+- The result of any comparison operator (<, >, =) with null/unknown is always unknown.
+- The result of boolean operations with null/unknown is also unknown.
+	- Except for the `or` case. `true or unknown` is unknown
+# 3.7 Aggregate Functions
+- SQL contains 5 built-in functions:
+	- Average: avg
+	- Minimum: min
+	- Maximum: max
+	- Total: sum
+	- Count: count
+## 3.7.1 Basic Aggregation
+```sql
+select avg(salary) as avg_salary
+from instructor
+where dept_name = 'Comp. Sci.';
+```
+- Calculates the average salary for CS professors and renames the relation as "avg_salary".
+```sql
+select count (distinct ID)
+from teaches
+where semester = 'Spring' and year = 2018;
+```
+- Counts the number of distinct IDs from the teaches relation where the semester attribute is 'Spring' and the year is 2018.
+- SQL does not allow the use of the distinct keyword with count (\*). 
+## 3.7.2 Aggregation with Grouping
 - 
 # 3.9 Modification of the Database
 Going over how we ad, remove, or change information in SQL.
