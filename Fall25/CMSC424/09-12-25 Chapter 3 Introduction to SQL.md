@@ -201,7 +201,80 @@ where semester = 'Spring' and year = 2018;
 - Counts the number of distinct IDs from the teaches relation where the semester attribute is 'Spring' and the year is 2018.
 - SQL does not allow the use of the distinct keyword with count (\*). 
 ## 3.7.2 Aggregation with Grouping
-- 
+- Previous aggregation techniques only involved single tuple operations.
+- We can perform aggregation on groups using the `group by` clause, placing all tuples that match the condition into groups.
+- A standard group by dept_name on the instructor relation:
+	- ![[Pasted image 20250922115046.png|200]]
+-  The following finds the average salary in each department.
+```sql
+select dept_name, avg(salary) as avg_salary
+from instructor
+group by dept_name;
+```
+- ![[Pasted image 20250922115339.png|200]]
+- The next query causes an error since ID is not present in the resulting group by dept_name:
+	- ```sql
+	  select dept_name, ID, avg(salary)
+	  from instructor
+	  group by dept_name;
+	  ```
+## 3.7.3 The Having Clause
+- A clause that applies to groups rather than tuples.
+```sql
+select dept_name, avg(salary) as avg_salary
+from instructor
+group by dept_name
+having avg(salary) > 42000;
+```
+![[Pasted image 20250922121123.png|200]]
+- This only shows departments with an average salary > 42000. Notice how Music is no longer in the resulting relation.
+### 3.7.3.1 Order of Operations
+1. `from`
+2. `where` condition is applied into the `from`
+3. Resulting tuples are then filtered through `group by`. If not applicable, resulting tuples from `where` are treated as one group.
+4. `having` is then applied to each group. Groups not satisfying the condition are removed.
+5. `select` finally runs, generates the resulting relation.
+```sql
+select course_id, semester, year, sec_Id, avg(tot_cred)
+from student, takes
+where student.ID = takes.ID and year = 2017
+group by course_id, semester, year, sec_id
+having count(ID) >= 2;
+```
+## 3.7.4 Aggregation with Null and Boolean Values
+- The SQL standard has certain operations that ignore nulls.
+	- All aggregate functions except `count (*)` ignores nulls.
+- Functions/queries that handle booleans:
+	- `some` computes the disjunction (or)
+	- `every` computes the conjunction (and)
+# 3.8 Nested Subqueries
+- A subquery is a `select`-`from`-`where` expression within another query.
+## 3.8.1 Set Membership
+- `in` tests for set membership
+- `not in` tests for absence of set membership
+```sql
+-- subquery --
+/* This subquery gets course ids from the section relation where semester = 'Spring' and year = 2018 */
+(select course_id)
+ from section
+ where semester = 'Spring' and year = 2018)
+-- main query --
+/* This uses the subquery to then extract distinct course_id from teh section relation where semester = Fall, year = 2017, and course_id is located in the returned subquery relation. */
+select distinct course_id
+from section
+where semester = 'Fall' and year = 2017 and
+	course_id in (select course_id
+				  from section
+				  where semester = 'Spring' and year = 2018);
+```
+## 3.8.2 Set Comparison
+- "Greater than at least one" is `> some` in SQL.
+- `=some` is IDENTIFICAL to `in` while `<>some` is NOT the same as `not in`.
+- "Greater than all" is `>all`.
+	- Also allows `<, <=, >, >=, <> all`.
+	- `<>all` is identical to `not in`, but `=all` is not the same as `in`.
+## 3.8.3 Test for Empty Relations
+
 # 3.9 Modification of the Database
 Going over how we ad, remove, or change information in SQL.
 ## 3.9.1 Deletion
