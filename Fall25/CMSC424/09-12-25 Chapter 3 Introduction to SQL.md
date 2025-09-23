@@ -182,7 +182,7 @@ where semester = 'Spring' and year = 2018);
 # 3.7 Aggregate Functions
 - SQL contains 5 built-in functions:
 	- Average: avg
-	- Minimum: min
+		- Minimum: min
 	- Maximum: max
 	- Total: sum
 	- Count: count
@@ -274,7 +274,72 @@ where semester = 'Fall' and year = 2017 and
 	- Also allows `<, <=, >, >=, <> all`.
 	- `<>all` is identical to `not in`, but `=all` is not the same as `in`.
 ## 3.8.3 Test for Empty Relations
-
+- We can test if subqueries return any results.
+- `exists` returns the value `true` if the subquery is nonempty.
+	- If false, nothing happens (does it raise an error/warning?)
+- `not exists` returns true if the subquery is empty.
+	- We can use this to check set containment: "relation A contains relation B" as `not exists (B except A)`
+- "Find all students who have taken all courses offered in the Biology department"
+```sql
+select S.ID, S.name
+from student as S
+where not exists ((select course_id
+				   from course
+				   where dept_name = 'Biology')
+				   except
+				   (select T.course_id
+				   from takes as T
+				   where S.ID = T.ID));
+```
+- The `S` in the subquery is called a *correlation name* and the subquery is called a *correlated subquery*.
+- Another example:
+```sql
+select course_id
+from section as S
+where semester = 'Fall' and year = 2017 and
+	exists (select *
+			from section as T
+			where semester = 'Spring' and year = 2018 and
+				S.course_id = T.course_id);
+```
+- The `S` called in the subquery used in the `where` clause is called a *correlation name* since S was defined in the above query.
+- The subquery that used the *correlation name* is called a *correlated subquery*.
+- Scoping rules are similar to those of programming languages.
+## 3.8.6 The With Clause
+- Allows the definition of a temporary relation whose definition is available only to the query in which the `with` clause occurs.
+```sql
+with max_budget (value) as
+	(select max(budget)
+	from department)
+select budget
+from department, max_budget
+where department.budget = max_budget.value;
+```
+- I like to think of this as the queries as functions, and the `with` clause is just defining a variable within the scope of that function.
+- We can re-assign sub-queries into `with` temporary relations to reduce the levels of nesting in our queries and promote readability.
+## 3.8.7 Scalar Subqueries
+- We can throw in subqueries wherever an expression returning a value is permitted.
+- This allows us to create subqueries in the `select` clause.
+```sql
+select dept_name,
+	(select count(*)
+	 from instructor
+	 where department.dept_name = instructor.dept_name)
+	as num_instructors
+from department;
+```
+- `department.dept_name` is also a correlation variable.
+- Scalar subqueries can appear in `select`, `where`, and `having` clauses. Can also be defined without aggregates.
+- One more note: It's not always possible to figure out at compile time if a subquery can return more than one tuple in its result. Thus if the result has more than one tuple, a run-time error occurs. 
+- The scalar subquery is TECHNICALLY a relation, but it's just a relation of one tuple.
+## 3.8.8 Scalar Without a From Clause
+- There are queries that require a calculation but no reference to any relation. 
+- "Suppose we wish to find the *average number of sections taught per instructor*, with sections taught by multiple instructors counted once per instructor."
+	- `(select count(*) from teaches) / (select count(*) from instructor);`
+	- Except this previous query is illegal in some systems due to a lack of a `from` clause.
+- We can use a "dummy" relation to contain the result.
+	- `select (select count(*) from teaches) / (select count(*) from instructor) from dual;`
+	- We use a dummy relation called `dual` to store the result, making this valid.
 # 3.9 Modification of the Database
 Going over how we ad, remove, or change information in SQL.
 ## 3.9.1 Deletion
