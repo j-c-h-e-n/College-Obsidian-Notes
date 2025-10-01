@@ -364,3 +364,18 @@ insert into instructor
 If we want to change a value in a tuple without changing all values in the tuple, we use the update statement.
 - `update instructor set salary=salary*1.05;` updates all salaries by 1.05.
 ![[Pasted image 20250914195315.png|250]]
+## 3.9.4 Case
+- SQL supports cases.
+```sql
+case
+	when pred1 then res1
+	when pred2 then res2
+	...
+	when predn then resn
+	else res0
+end
+```
+## 3.9.5 Coalesce
+- Brief mention of coalesce.
+- It replaces nulls with other values.
+	- `coalesce(sum(entry), 0)` returns an aggregate result of `sum(entry`. If it is null it will return 0 instead.
