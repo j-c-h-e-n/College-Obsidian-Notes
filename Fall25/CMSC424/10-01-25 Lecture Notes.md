@@ -30,6 +30,7 @@
 - One-to-One
 - One-to-Many
 - Many-to-One
+	- "x can have at most 1 of y"
 - Many-to-Many
 - N-ary relationships? (we will not talk about this in CMSC424)
 ## Types of Attributes

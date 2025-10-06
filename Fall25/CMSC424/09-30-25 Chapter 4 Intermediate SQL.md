@@ -43,5 +43,23 @@
 	- The query doesn't have a `group by` or `having` clause.
 - Only the simplest of views are updatable.
 # 4.3 Transactions
-
+- Transaction: A sequence of query and/or update statements.
+- One of these statements must end the transaction:
+	- `Commit work` commits the current transaction: Makes the updates in the transaction permanent.
+	- `Rollback work` causes all updates in the transaction to be reverted back to an original state.
+- Once committed, a rollback cannot be applied.
+- Transactions are defined as *atomic*: Either everything applies, or if something fails then everything fails (is removed).
+- In many implementations, each SQL statement is a transaction and is committed as soon as it is executed.
 # 4.4 Integrity Constraints
+- Ensures that changes made to the database do not result in a loss of data consistency.
+- Contrasts with *security constraints* which deals with user authorizations.
+- Examples:
+	- An instructor name cannot be *null*.
+	- No two instructors can have the same ID.
+	- Every department name in the *course* relation must have a matching department name in the *department* relation.
+	- The budget of a department must be greater than $0.
+- Chapter 7 will introduce *functional dependencies*.
+- Integrity Constraints are usually defined in the database schema design process, part of the `create table` command.
+- But they can be added using `alter table <table> add <constraint>` as well.
+	- Verifies the relation FIRST. If the relation does not satisfy the constraint, it is rejected.
+- 
