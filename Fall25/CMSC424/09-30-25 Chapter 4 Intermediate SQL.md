@@ -62,4 +62,34 @@
 - Integrity Constraints are usually defined in the database schema design process, part of the `create table` command.
 - But they can be added using `alter table <table> add <constraint>` as well.
 	- Verifies the relation FIRST. If the relation does not satisfy the constraint, it is rejected.
-- 
+## 4.4.1 Constraints on a Single Relation
+- Section 3.2 discussed how to define tables with `create table`.
+- There can be constraints applied (either on attribute or on the entire relation):
+	- `not null`
+	- `unique`
+	- `check <condition>`
+## 4.4.2 Not Null Constraint
+- Null is a legal value for every attribute in SQL by default, so we can define an attribute to not accept null as a legal value.
+- For example:
+	- We would not want a student's name to be null.
+	- We would not want the department's budget to be null.
+```sql
+...
+name varchar(20) not null
+budget numeric(12,2) not null
+...
+```
+## 4.4.3 Unique Constraint
+- `unique (A_j1, A_j2, A_j3, ..., A_jm)`
+- Specifies that attributes A_j1, A_j2, A_j3, ..., A_jm form a superkey (each element is unique). 
+- Attributes declared as `unique` will still allow repeat `null` values unless explicitly declared `not null`.
+	- `null` values do not equal any other value. Hence, `null` != `null`.
+## 4.4.4 Check Clause
+- `check(P)` specifies a predicate/condition `P` must be satisfied by every tuple in a relation.
+- Commonly used to ensure that attribute values satisfy specified conditions.
+![[Pasted image 20251015122442.png|500]]
+- The above ensures that the tuples for the semester attribute only has values of 'Fall', 'Winter', 'Spring', and 'Summer'.
+- `null` presents a special case: Checks are satisfied if *they are not false*. Unknown != false and thus `null` values are not violations.
+- The check clause can be defined separately like the above or as part of the declaration of an attribute.
+![[Pasted image 20251015124444.png|500]]
+## 4.4.5 Referential Integrity
