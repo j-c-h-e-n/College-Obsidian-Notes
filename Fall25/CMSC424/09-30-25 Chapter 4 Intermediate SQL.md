@@ -93,3 +93,5 @@ budget numeric(12,2) not null
 - The check clause can be defined separately like the above or as part of the declaration of an attribute.
 ![[Pasted image 20251015124444.png|500]]
 ## 4.4.5 Referential Integrity
+- Covered in class but ensures a value of an attribute (or a set of attributes) that appears in one relation also appears in another relation.
+- Foreign keys are a form of referential integrity constraint.
