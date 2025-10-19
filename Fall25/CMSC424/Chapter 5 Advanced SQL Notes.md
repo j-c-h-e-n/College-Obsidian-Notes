@@ -55,7 +55,7 @@ FOR EACH ROW
 WHEN (nrow.time_slod_id NOT IN (
 	  SELECT time_slot_id
 	    FROM time_slot)) /* time_slot_id not present in time_slot */
-BEGIN
+BEGIN /* enters the BEGIN...END if the statement before is TRUE */
 	ROLLBACK
 END;
 
@@ -64,7 +64,7 @@ REFERENCING OLD ROW AS orow
 FOR EACH ROW
 WHEN (orow.time_slot_id NOT IN(
 	  SELECT time_slot_id
-		FROM time_slot) /* last tuple for time_slot_id deleteing from time_slot */
+		FROM time_slot) /* last tuple for time_slot_id deleting from time_slot */
 	AND orow.timeslot_id IN(
 	  SELECT time_slot_id
 		FROM section)) /* and time_slot_id still referenced from section */
@@ -75,6 +75,11 @@ END;
 - Shows how triggers can be used to ensure referential integrity on the *time_slot_id* attribute of the *section* relation.
 - Order of operation (for #1):
 	1. `timeslot_check1` activates after any insert on the *section* relation.
-	2. `FOR EACH ROW` (iteration). Condition within this is fired for every newly inserted row.
+	2. `FOR EACH ROW` (iteration). Every new row to be inserted has to be evaluated by the `WHEN` condition.
 	3. `nrow` is created as a reference to the newly inserted row.
 	4. `WHEN` is the condition check. In this case, checks if `nrow.time_slot_id` is not in the existing *time_slot* relation.
+	5. If the condition evaluates to TRUE, the `BEGIN...END` is entered and `ROLLBACK` occurs.
+	6. If the condition evaluates to FALSE, we iterate to the next new row to be inserted.
+- `REFERENCING NEW ROW` allows us to refer to new values thrown into the database (insertions, new updated values).
+- `REFERENCING OLD ROW` allows us to refer to old values removed from the database (deletes, old values prior to updates)
+- 
