@@ -1,7 +1,9 @@
 Take notes on chapter 5 to end of 5.1.1
 Chapter 5.2 to 5.2.1
+Chapter 5.3
 Chapters 3 and 4 provided detailed coverage on the basic structures of SQL.
 Chapter 5 will cover how procedural code can be executed within the database either by extending SQL to support procedural actions or by allowing functions defined by procedural languages for the database.
+
 # 5.1 Accessing SQL from a Programming Language
 - SQL provides a declarative query language with many functions but it's better to have access to a general-purpose programming language for the following reasons:
 	- Not all queries can be expressed with SQL. We can embed SQL into languages like Python, C, or Java.
@@ -30,3 +32,49 @@ Chapter 5 will cover how procedural code can be executed within the database eit
 ### 5.1.1.4 Retrieving the Result of a Query
 - A query is executed with `stmt.executeQuery()`. The same function returns the results of the query as a `ResultSet`. The `ResultSet` is kind of a linked list that requires you to call `rset.next()` to access subsequent tuples.
 ### 5.1.1.5 Prepared Statements
+
+
+# 5.3 Triggers
+- A statement that the database system executed automatically as a side effect of a modification to the database.
+- To define, we must:
+	- Specify when the trigger executes. Specifically, define an *event* that causes the trigger to be checked, then a *condition* that must be satisfied for the trigger to execute.
+	- Upon execution, specify the *actions* that happen as a result.
+## 5.3.1 Need for Triggers
+- Useful for:
+	- Implementing certain integrity constraints that cannot be defined using the constraint mechanisms of SQL.
+	- Creating alerts.
+	- Automatic task execution upon condition fulfillment.
+- Note: Triggers cannot usually perform updates outside the database. Thus changes are only in the database system.
+## 5.3.2 Triggers in SQL (Implementation)
+- Based on SQL standard, but many DBs implement their own syntax.
+```sql
+-- #1
+CREATE TRIGGER timeslot_check1 AFTER INSERT ON section
+REFERENCING NEW ROW AS nrow
+FOR EACH ROW
+WHEN (nrow.time_slod_id NOT IN (
+	  SELECT time_slot_id
+	    FROM time_slot)) /* time_slot_id not present in time_slot */
+BEGIN
+	ROLLBACK
+END;
+
+CREATE TRIGGER timeslot_check2 AFTER DELETE ON timeslot
+REFERENCING OLD ROW AS orow
+FOR EACH ROW
+WHEN (orow.time_slot_id NOT IN(
+	  SELECT time_slot_id
+		FROM time_slot) /* last tuple for time_slot_id deleteing from time_slot */
+	AND orow.timeslot_id IN(
+	  SELECT time_slot_id
+		FROM section)) /* and time_slot_id still referenced from section */
+BEGIN
+	ROLLBACK
+END;
+```
+- Shows how triggers can be used to ensure referential integrity on the *time_slot_id* attribute of the *section* relation.
+- Order of operation (for #1):
+	1. `timeslot_check1` activates after any insert on the *section* relation.
+	2. `FOR EACH ROW` (iteration). Condition within this is fired for every newly inserted row.
+	3. `nrow` is created as a reference to the newly inserted row.
+	4. `WHEN` is the condition check. In this case, checks if `nrow.time_slot_id` is not in the existing *time_slot* relation.
