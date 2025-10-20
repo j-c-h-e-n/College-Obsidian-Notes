@@ -46,6 +46,13 @@ Chapter 5 will cover how procedural code can be executed within the database eit
 	- Automatic task execution upon condition fulfillment.
 - Note: Triggers cannot usually perform updates outside the database. Thus changes are only in the database system.
 ## 5.3.2 Triggers in SQL (Implementation)
+- General information:
+	- Triggers can be enabled and disabled:
+		- `ALTER TRIGGER _____ DISABLE/ENABLE`. Triggers are enabled by default.
+	- They can also be dropped (permanently removed).
+		- `DROP TRIGGER _____`.
+	- Be very careful with the logic of triggers, ensuring they are bulletproof.
+### 5.3.2.1 Triggers for Rows
 - Based on SQL standard, but many DBs implement their own syntax.
 ```sql
 -- #1
@@ -82,4 +89,27 @@ END;
 	6. If the condition evaluates to FALSE, we iterate to the next new row to be inserted.
 - `REFERENCING NEW ROW` allows us to refer to new values thrown into the database (insertions, new updated values).
 - `REFERENCING OLD ROW` allows us to refer to old values removed from the database (deletes, old values prior to updates)
-- 
+- Example uses of triggers:
+	- Handling grade corrections that change successful grades to failing grades, then handling insertions in another relation where the grade indicates successful completion.
+	- Deleting students from the *student* relation then removing respective student/class combos from the *takes* relation since they no longer exist.
+- **Triggers can be activated BEFORE an event instead of AFTER the event.**
+	- Preventing invalid updates, inserts, or deletes. Catching failures before they occur when the action is actually happening.
+	- `CREATE TRIGGER ____ BEFORE ______`
+	- `CREATE TRIGGER ____ AFTER ______`
+- We can use triggers to modify the values of the inserted tuples:
+	- If insertions involve blanks to represent the absence of data, we can define a trigger that checks for these absences and replace them with `null`.
+### 5.3.2.2 Triggers for Statements
+- Instead of rows (`FOR EACH ROW`), we can have triggers that handle entire statements with `FOR EACH STATEMENT`.
+- Then we need to also have `REFERENCING OLD TABLE AS` or `REFERENCING NEW TABLE AS`.
+	- These create "transition tables" that contain all affected rows in the operation.
+- Transition tables can only be used for triggers that take place AFTER an action.
+## 5.3.3 When Not to Use Triggers
+- Examples:
+	- `ON DELETE CASCADE` could be implemented using a trigger instead.
+		- Not ideal since it's much harder for a DB user to understand what is going on. Much better to use the built in `CASCADE` feature.
+	- Triggers are used to maintain materialized views.
+		- Many modern DB systems now support materialized views, automatically maintaining them.
+	- Maintaining copies/replicas of databases. A collection of triggers can be written to record changes in relations called *change*/*delta* relations.
+		- Many modern DB systems now have built-in functionality for DB replication.
+		- Sometimes triggers are unintentionally executed when data is loaded in from a backup. Creates extra work where some triggers must be manually disabled and re-enabled during the backup restoring process.
+- Key idea: avoid using triggers when alternative methods exist.
