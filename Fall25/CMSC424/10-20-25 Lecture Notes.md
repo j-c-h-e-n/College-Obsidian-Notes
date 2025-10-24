@@ -51,8 +51,9 @@ More E/R Diagrams and their link to Relations.
 ## BCNF: Boyce-Codd Normal Form
 - A relation schema $R$ is "in BCNF" if:
 	- Every functional dependency $A \rightarrow B$ that holds on it is EITHER:
-		1. Trivial
+		1. Trivial - If the right is a subset of the left.
 		2. A is a superkey of R
+- Side note, $A \rightarrow B$, $B \rightarrow C$, for $R(A, B, C)$ is NOT in BCNF since $B !\rightarrow A$, therefore $B$ is not a superkey that can account for all $C$. $A \rightarrow B$ is a "many-to-one" relation.
 - BCNF guarantees that there will be no redundancy that results from a functional dependency.
 - Consider a relation $r(A, B, C, D)$ with functional dependency $A \rightarrow B$ and two tuples: $(a_1, b_1, c_1, d_1)$ and $(a_1, b_1, c_2, d_2)$.
 	- NOT IN BCNF.
@@ -60,3 +61,17 @@ More E/R Diagrams and their link to Relations.
 - Given an FD, $A \rightarrow B$, if $A$ repeats, then $(B-A)$ also has to repeat (any part of B that is not in A also must repeat).
 - If rule 1 (trivial) is satisfied, $(B-A)$ is empty, thus not a problem.
 - If rule 2 is satisfied, then $A$ can't be repeated, so this doesn't happen either.
+## Creating BCNF Schemas
+- For all dependencies $A \rightarrow B$ that hold on a relation, check if $A$ is a superkey.
+- If not, then
+	- Choose a dependency that breaks the BCNF rules, say $A \rightarrow B$
+	- Create $R1 = (A, B)$
+	- Create $R2 = R - (B-A)$ (new relation WITHOUT B).
+	- Note that: $R1 \cap R2 = A$ and $A \rightarrow AB (=R1)$, so this is lossless decomposition.
+Not always possible to find a dependency-preserving decomposition that is in BCNF.
+- NP-Hard to find one that exists.
+## BCNF and Redundancy
+- Complex when there's multi-valued dependencies.
+- 3NF is an alternative to BCNF that preserves dependencies, but may allow some FD redundancy.
+- 4NF removes redundancies due to multi-valued dependencies.
+- 
