@@ -67,6 +67,7 @@
 		- $\sigma_{dept\_name = building}(department)$ selects tuples where the dept_name value equals the building value.
 ## 2.6.2 The Project Operation ($\Pi$)
 - Allows us to view attributes from a relation with other attributes left out.
+- Shows only UNIQUE values.
 	- ex:
 		- $\Pi_{ID, name, salary} (instructor)$ shows the ID, name, and salary attributes in the relation.
 	- We can also impose operations on specific attributes:

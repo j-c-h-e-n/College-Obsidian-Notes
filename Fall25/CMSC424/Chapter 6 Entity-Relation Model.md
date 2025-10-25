@@ -48,4 +48,24 @@ Sections 6.5-6.7 of textbook
 - The above example shows the relationship set only showing the connection between two entity sets, but relationship sets can actually denote the association of more than two entity sets.
 - Formally, relationship set is defined as: for $n \geq 2$, if $E_1, E_2, ..., E_n$ are entity sets, then relationship set $R \subset \{(e_1, e_2,..., e_n) | e_1 \in E_1, e_2 \in E_2, ..., e_n \in E_n\}$ where $(e_1, ..., e_n)$ is a relationship instance.
 	- Additionally, association between entity sets is called *participation*. $E_1, E_2, ..., E_n$ *participate* in a relationship set $R$.
-- 
+- The functions that an entity plays in a relationship is called their *role*.
+	- Roles are implicit and not usually specified. However, useful when there needs to be clarification. Especially when the same entity set participates in a relationship set more than once, in different roles.
+- Relationships where entity sets participate more than once are called *recursive* relationship sets. These need explicit role names for clarity.
+	- Ex: Entity set *course* records information about all courses offered at a uni. To depict the situation where one course, $C2$, is a prerequisite for another, $C1$, we have relationship set *prereq* that is modeled by ordered pairs of *course* entities. The first entry in the pair is the course to be taken, and the second is the prerequisite, $(C1, C2)$. 
+![[Pasted image 20251024191224.png|400]]
+- A relationship can also have attributes called *descriptive attributes*. 
+	- For example, the relationship set *takes* relates the tables *students* and *section*. A descriptive attribute for the relationship set could be *grade* which the student received in a course offering.
+- *Descriptive attributes* are represented by an **undivided rectangle** in the E-R diagram linked by dashed lines.
+![[Pasted image 20251024193112.png|400]]
+- It is possible to have more than one relationship set involving the same entity sets.
+	- Students may be TAs for a course. Thus the entity sets *section* and *student* may participate in a relationship set *teaching_assistant*, in addition to participating in the *takes* relationship set.
+- The relationship sets *advisor* and *takes* provide examples of a *binary relationship set* (of degree 2). *Ternary relationship sets* are of degree 3.
+![[Pasted image 20251024194830.png|400]]
+# 6.3 Complex Attributes
+- For each attribute, they have permitted values called the *domain* or *value set*.
+	- The domain of attribute *course_id* might be the set of all text strings of a certain length.
+	- The domain of attribute *semester* might be strings from the set Fall, Winter, Spring, and Summer.
+- An attribute can be considered *simple* or *composite*.
+- Simple attributes:
+	- Atomic, cannot be divided into subparts.
+- Composite attributes:
