@@ -135,6 +135,7 @@ Sections 6.5-6.7 of textbook
 		- We can treat the relationship *sec_course* as a special relationship that provides extra information, notably *course_id*, to identify *section* entities uniquely.
 - "A **weak entity set** is one whose existence is dependent on another entity set, called its **identifying entity set**;" (a weak entity set and identifying entity set are an inseparable pair. The identifying entity set owns the weak entity set.)
 	- "Instead of associating a primary key with a weak entity, we use the primary key of the identifying entity, along with extra attributes, called **discriminator attributes** to uniquely identify a weak entity. An entity set that is not a weak entity is termed a **strong entity set**."
+	- Primary key of weak entity set = primary key of identifying set + discriminators.
 - This relationship between the identifying and weak entity sets is called the *identifying relationship*.
 - The identifying relationship should not have any descriptive attributes. These descriptive attributes should be associated with the weak entity set.
 - A weak entity set is represented with a double rectangle. Its discriminators are underlined with a dashed line. The relationship set connecting to the weak entity set is a double diamond. The line is also doubled but that is because a weak entity set must have total participation in its identifying relationship set, and it is a many-to-one relation from identifying to weak.
@@ -144,5 +145,48 @@ Sections 6.5-6.7 of textbook
 	- Weak entity sets can be an identifying set to another weak entity set.
 	- Weak entity sets can have multiple identifying sets.
 # 6.6 Removing Redundant Attributes in Entity Sets
-
+- Typical order of designing with the E-R model:
+	1. Identify entity sets to be included.
+	2. Determine appropriate attributes for each entity set.
+	3. Form relationship sets amongst entity sets.
+- Forming relationship sets may reveal redundant attributes amongst entity sets in a relationship.
+	- Example: 
+		- `__ID__, name, dept_name, salary` are the attributes of *instructor*. 
+		- `__dept_name__, building, budget` are the attributes of *department*.
+		- We create the relationship set *inst_dept* that relates *instructor* and *department*.
+		- `dept_name` appears in both entity sets. Since it is the primary key for *department* it is redundant in *instructor* - should be removed from *instructor*.
+		- This makes it so that only the instructors with associated departments get `dept_name`.
+		- If an instructor has more than one associated department, then the relationship between instructors and departments is recorded in a separate relation *inst_dept*.
+	- More complex example:
+		- `__course_id__, __sec_id__, __year__, __semester__, building, room_number, time_slot_id` form the attributes for *section*.
+		- `__time_slot_id__, composite{day, start_time, end_time}` form the attributes for *time_slot*.
+			- Reminder: {} means multi-valued. Each value is a composite of the three elements.
+		- `time_slot_id` appears in both entity sets. Being a primary key in *time_slot* makes it redundant in *section*.
+	- A GOOD E-R DESIGN DOES NOT CONTAIN REDUNDANT ATTRIBUTES.
+	- If there are primary keys in a relationship set and they are repeated in one of the entities, remove the non-primary keys.
+![[Pasted image 20251026131350.png]]
 # 6.7 Reducing E-R Diagrams to Relational Schemas
+- For each entity set and for each relationship set in the database design, there is a unique relation schema to which we can map corresponding concepts.
+## 6.7.1 Representation of Strong Entity Sets (with Simple Attributes)
+- Reminder: Strong entity sets are entity sets that are not weak.
+- It is a direct mapping. 
+- Let $E$ be a strong entity set with only simple descriptive attributes $a_1, a_2, ..., a_n$. In relation schema form, it is $E(a_1, a_2, ..., a_n)$.
+## 6.7.2 Representation of Strong Entity Sets with Complex Attributes
+- We handle **composite attributes** by creating a separate attribute for each component. But we do not create an attribute for the composite attribute itself.
+	- For example, a composite attribute of name which has components of `first_name`, `middle_name`, and `last_name` will have `first_name`, `middle_name`, and `last_name`, as individual attributes in the relation schema. The composite attribute of name itself will not transfer.
+- We handle **multivalued attributes** differently by creating an entirely new relation schema related to the originally generated relation schema without the multivalued attributes.
+	- An entity set $E_1$ generates a relation schema $R_1$. The multivalued attributes require a new relation schema $R_2$. Let us say attribute $A_1$ has a value of $V_1$ and a multivalued attribute $A_2$ has values $V_{2,1}$ and $V_{2, 2}$. Then the resulting relation $R_2$ would have two tuples of $(V_1, V_{2,1})$ and $(V_1, V_{2,2})$ for attributes $A_1$ and $A_2$. We then assign $A_1$, $A_2$ as the primary key $P_2$ of $R_2$.
+	- We then create a foreign-key constraint on the relation schema created from the multivalued attribute, having $A_1$ from $R_2$ reference the same attribute in $R_1$. 
+	- In the case that an entity set consists of only two attributes - a single primary-key attribute $P$ and a single multivalued attribute $M$ - the relation schema for the entity set would only contain one attribute, namely the primary-key attribute $P$. Then we can drop this relation, retaining the relation schema with the attribute $P$ and attribute $A$ that corresponds to $M$.
+	- For example, `__time_slot_id__, composite{day, start_time, end_time}` form the attributes for *time_slot*. This is represented as a relation schema with `time_slot(__time_slot_id__, __day__, __start_time__, end_time)`.
+		- `end_time` is omitted as a primary-key even though it has not been explicitly stated since there cannot be two meetings of a class that start at the same time of the same day of the week but end at different times.
+- We handle **derived attributes** by representing them as stored procedures, functions, or other methods since derived attributes are calculated from other attributes.
+## 6.7.3 Representation of Weak Entity Sets
+- Let $A$ be a weak entity set with attributes $a_1, a_2, ..., a_n$. Let $B$ be the strong entity set on which $A$ depends ($B$ is not necessarily an identifying set since these can be weak as well). Let the primary key of $B$ consist of attributes $b_1, b_2, ..., b_n$.
+- A can be represented by a relation schema called $A$ with the attributes of $\{a_1, a_2, ..., a_n\} \cup \{b_1, b_2, ..., b_n\}$. This is a combination of the primary key of $B$ and the discriminators of $A$.
+- We then impose a foreign key constraint on the relation $A$, specifying that $b_1, b_2, ..., b_n$ refer to the primary key of the relation $B$.
+	- This makes it so that each tuple in the weak entity is represented by a corresponding tuple in the strong entity.
+## 6.7.4 Representation of Relationship Sets
+
+## 6.7.5 Redundancy of Schemas
+## 6.7.6 Combination of Schemas
