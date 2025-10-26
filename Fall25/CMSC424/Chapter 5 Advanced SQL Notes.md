@@ -19,6 +19,7 @@ Chapter 5 will cover how procedural code can be executed within the database eit
 	- first parameter is a string that specifies the URL or machine name of the database and includes specific parameters and port numbers.
 	- Second parameter is the database's user identifier (string).
 	- Third is a password (string).
+- `executeUpdate()` is used to execute DDL statements.
 ### 5.1.1.2 Shipping SQL Statements to the Database System
 - Once a connection is open (through `getConnection()`) the program can use it to send SQL statements to the DB for execution.
 - Seen in the `conn.CreateStatement()` which is then called in `stmt.<function>`.
