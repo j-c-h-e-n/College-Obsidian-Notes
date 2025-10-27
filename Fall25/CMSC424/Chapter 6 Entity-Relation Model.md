@@ -182,11 +182,30 @@ Sections 6.5-6.7 of textbook
 		- `end_time` is omitted as a primary-key even though it has not been explicitly stated since there cannot be two meetings of a class that start at the same time of the same day of the week but end at different times.
 - We handle **derived attributes** by representing them as stored procedures, functions, or other methods since derived attributes are calculated from other attributes.
 ## 6.7.3 Representation of Weak Entity Sets
-- Let $A$ be a weak entity set with attributes $a_1, a_2, ..., a_n$. Let $B$ be the strong entity set on which $A$ depends ($B$ is not necessarily an identifying set since these can be weak as well). Let the primary key of $B$ consist of attributes $b_1, b_2, ..., b_n$.
-- A can be represented by a relation schema called $A$ with the attributes of $\{a_1, a_2, ..., a_n\} \cup \{b_1, b_2, ..., b_n\}$. This is a combination of the primary key of $B$ and the discriminators of $A$.
+- Let $A$ be a weak entity set with attributes $a_1, a_2, ..., a_m$. Let $B$ be the strong entity set on which $A$ depends ($B$ is not necessarily an identifying set since these can be weak as well). Let the primary key of $B$ consist of attributes $b_1, b_2, ..., b_n$.
+- A can be represented by a relation schema called $A$ with the attributes of $\{a_1, a_2, ..., a_m\} \cup \{b_1, b_2, ..., b_n\}$. This is a combination of the primary key of $B$ and the discriminators of $A$.
 - We then impose a foreign key constraint on the relation $A$, specifying that $b_1, b_2, ..., b_n$ refer to the primary key of the relation $B$.
 	- This makes it so that each tuple in the weak entity is represented by a corresponding tuple in the strong entity.
 ## 6.7.4 Representation of Relationship Sets
-
+- Let $R$ be a relationship set, let $a_1, a_2, ..., a_m$ be the set of attributes formed by the union of the primary keys of each of the entity sets $E_i$ participating in $R$. Let $b_1, b_2, ..., b_n$ be the set of attributes (if any) of $R$. Then the relation schema for $R$ is $\{a_1, a_2, ..., a_m\} \cup \{b_1, b_2, ..., b_n\}$.
+- 6.5 discussed how to choose primary keys for binary relationship sets. We use the same method for the translation into relation schemas.
+	- Many-to-many is the union of primary keys of both entities.
+	- Many-to-one and one-to-many uses the primary keys of the "many" side.
+	- One-to-one can use the primary keys of either set.
+- We create foreign key constraints on $R$ through the following: for each entity set $E_i$ linked by relationship set $R$, we create a foreign-key constraint from relation schema $R$, with the attributes of $R$ that were derived from primary-key attributes of $E_i$ referencing the primary key of the relation schema representing $E_i$.
+- For example:
+	- *instructor* with primary key `ID`.
+	- *student* with primary key `ID`.
+	- The relationship set *advisor* has no attributes.
+	- As a result, the relationship **schema** has two attributes, the union of the primary keys of *instructor* and *student*, which is `ID` and `ID`. There is confusion so we can rename them to `i_ID` and `s_ID`.
+	- There are two foreign-key constraints on *advisor*, with `i_ID` referencing the primary key of *instructor* and `s_ID` referencing the primary key of *student*.
 ## 6.7.5 Redundancy of Schemas
+- A relationship set linking a weak entity set to a strong entity set is treated in a special case. Usually many-to-one and have no descriptive attributes. Additionally, the weak set requires the strong entity set to form a primary key.
+- For example, the primary key of *section* is `{course_id, sec_id, semester, year}` and the primary key of *course* is `course_id`. The relationship set `sec_course` does not have any attributes. Therefore the *sec_course* schema has attributes `course_id`, `sec_id`, `semester`, and `year`. Since the schema of the entity set *section* already has `course_id`, `sec_id`, `semester`, and `year`, every combination of these keys in *sec_course* is already present in *section*, therefore the *sec_course* schema is redundant.
+- In general, the schema created for a relationship that links a weak entity set to its corresponding strong entity set is redundant.
 ## 6.7.6 Combination of Schemas
+- Consider a many-to-one relationship set $AB$ from entity set $A$ to entity set $B$. We get three schemas from this: $A$, $B$, and $AB$. Suppose further that $A$ has total participation. Then we can combine $A$ and $AB$ as $A \cup AB$ since $ A$ and $AB$ by themselves were redundant. The new primary key is simply the primary key of $A$.
+	- The foreign key for the new $A \cup AB$ relation is just the foreign key from $B$. The one from $A$ is dropped since relation $A$ was dropped. In short, the "many" relation and it's foreign-key constraint is dropped. Its data is migrated into the new combined relation, and the foreign-key from the "one" relation is kept.
+- In one-to-one relationships, a valid schema can be created by combining the relationship set with either entity set.
+	- The foreign key constraint is also similarly decided, it can be taken from either entity set. But to make things consistent, it should be derived from the entity set that was combined with the relationship set.
+- For the foreign-key constraints representing the relationship set $AB$, we drop the constraint referencing the original entity set from where the constraint came from.
