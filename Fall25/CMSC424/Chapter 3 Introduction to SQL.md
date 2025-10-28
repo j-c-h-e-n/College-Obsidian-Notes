@@ -151,7 +151,8 @@ where semester = 'Spring' and year=2018);
 ```
 - Does the equivalent of just a union between two sets.
 - Select statement needs equivalent number of columns between the chosen relations.
-- If we had multiple selected columns for the first relation, say $A_1, A_2, A_3$, and the second relation has $A_1, B_2, B_3$, then the $B_2, B_3$ columns will be placed in the new unioned relation as $A_2, A_3$ (even if the datatypes don't match?).
+- If we had multiple selected columns for the first relation, say $A_1, A_2, A_3$, and the second relation has $A_1, B_2, B_3$, then the $B_2, B_3$ columns will be placed in the new unioned relation as $A_2, A_3$ (with similar datatypes, and columns in same order).
+- Selected queries for union MUST HAVE SAME NUMBER OF COLUMNS.
 ## 3.5.2 The Intersect Operation (intersect)
 ```SQL
 (select course_id
