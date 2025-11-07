@@ -13,4 +13,6 @@ Normalization is covered on exam. Topics after normalization will not be covered
 	- A temporary intermediate space that serves as memory.
 	- Have to manage the limited memory.
 - Space Management on Persistent Storage
-	- 
+	- Storage hierarchy.
+	- Where are relations stored?
+	- How are tuples mapped to disk blocks?
