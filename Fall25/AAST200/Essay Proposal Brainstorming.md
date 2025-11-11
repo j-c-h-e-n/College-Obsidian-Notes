@@ -10,3 +10,5 @@ Roof Koreans and the Media's Portrayal to Strain Race Relations
 - Interviewing Koreans who were involved in 1992 and relating to today's media: https://paulayoo.com/we-are-not-your-rooftop-koreans/
 - Further relation with "Rooftop Koreans" and today's conversations, especially with the "Roof Koreans" meme: https://www.huffpost.com/entry/roof-koreans-meme-know-real-story_n_5ee110a1c5b6d5bafa5604f3
 - Media's skewing of the conflict between Koreans and African Americans. Highlights external factors: https://www.nbcnews.com/news/asian-america/korean-american-black-conflict-l-riots-was-overemphasized-media-expert-rcna26547
+- Talking about the Roof Koreans meme and historical contexts, good for general knowledge and some quotes: https://read.dukeupress.edu/journal-of-asian-studies/article/84/2/497/399020/The-Roof-Koreans-MemeThe-Collective-Memory-of-Los
+- 
