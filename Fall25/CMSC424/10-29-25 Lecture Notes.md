@@ -90,4 +90,3 @@ This half of the semester talks about "How to build a database".
  - B-Trees.
  - Sparse indexing that goes to another level of sparse (or dense) indexes, which then links to another level of more indexes (sparse or dense), etc.
  - Not great when we need to write to the indexes.
- - 

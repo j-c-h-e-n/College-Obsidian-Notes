@@ -1,4 +1,5 @@
 # B+ Trees
+$log_d(n)$ of runtime, d = depth, n = # of references per node.
 ## Tuple Insertion
 - Find leaf node where search key needs to go.
 	- If already present, insert the record into the file. Update the bucket if necessary

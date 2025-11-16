@@ -1,0 +1,1 @@
+See 11-05-2025 Lecture on B+ Trees (covered tuple deletion).
