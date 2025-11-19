@@ -66,7 +66,7 @@ $\leftrightarrow$ `R, B+Tree on R.a Scan S (No index on S.a)...`
 - Do this $N$ times.
 - Now we have $N$ sorted blocks of $M$ size each.
 ### Example
-- For $B$ relation blocks and $M$ memory blocks, there will be $2\frac{B}{M}$seeks and $2B$ IOs.
+- For $B$ relation blocks and $M$ memory blocks ($\frac{B}{M}$ runs), there will be $2\frac{B}{M}$seeks and $2B$ IOs.
 	- A seek for placing block to memory, and a seek for removing the block from memory. An IO for reading it in and writing it out.
 ## Phase 2
 - Merge the $N$ runs ($N$-way merge).
@@ -76,4 +76,6 @@ $\leftrightarrow$ `R, B+Tree on R.a Scan S (No index on S.a)...`
 	- Then, we have a new $N$, if $N<M$ then we can one shot merge.
 	- For example, if $M = 1000$, we can compare $999$ runs.
 		- ($4$KB blocks): can sort: $999$ runs, each of $1000$ blocks, each of $4$k bytes $\approx$ $4$GB of data.
+### Example
+- Phase 2 only needs to read every block once. So for $\frac{B}{M}$ runs, there will be $\frac{B}{M}$seeks and $B$ IOs.
 
