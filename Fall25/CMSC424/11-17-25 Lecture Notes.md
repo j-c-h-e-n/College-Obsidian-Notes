@@ -4,8 +4,5 @@
 	- Called "equi-join".
 - `select * from R, S where |R.a - S.a| < 0.5`
 	- Not an "equi-join".
-### Process:
-#### Option 1, Nested Loops:
-for each tuple in R
-	for each tuple in S
-		check if r.a = s.a (or whether |r.a - s.a| < 0.5)
+
+## Nested loops join
