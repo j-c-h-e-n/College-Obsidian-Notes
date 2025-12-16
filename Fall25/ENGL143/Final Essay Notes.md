@@ -2,6 +2,20 @@
 - Overall message of my infographic: (something related to Georgia and something related to expenditures and statuses?)
 	- Maybe something relating to certain US-wide-trends and the comparison of these to current/near-current day statistics.
 	- Maybe the evolution of statistical presentation through the lens of race reporting?
+		- Relate to cultural phenomenon 
+			- the modern priority of seeing data within a broader context (graphs now talk about x vs y in the bigger scope of z).
+			- the past priority of just seeing the raw data as it is without relative context and without comparisons to another.
+- Du Bois created these for the 1900 Paris Exposition
+	- The Paris Exposition was a world-fair held to present achievements of the past and accelerate into the new century. The audience was likely everyone that would go to the exposition.
+- Who am I presenting to?
+	- Experts who want a full picture between data collection efforts of the 20th century, how the presentation of data was biased, how easy it is to present an unrepresentative image through the lack of details.
+	- MORE DETAIL PLEASE.
+- How does my remediation complement, reinforce, revise, enhance, or challenge the original one in the role of achieving its goal?
+	- It highlights the differences between 20th century and 21st century data visualization efforts. It challenges the past view 
+
+4 pager:
+- Go into detail about my project process, the whole background, the entire 
+
 Compilation of visualizations to create a message:
 ![[Screenshot 2025-12-11 110501.png|300]]
 - Occupations: agriculture, domestic and personal service, manufacturing/mechanical industries, trades/transportation, professions. Comparison between whites and blacks in GEORGIA published in 1900.
