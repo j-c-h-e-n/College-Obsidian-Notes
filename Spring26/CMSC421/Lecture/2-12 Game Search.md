@@ -1,0 +1,39 @@
+- 2-player zero-sum discrete finite deterministic games of perfect information.
+	- two player
+	- sum of total gains and losses is always equalized (=0).
+	- All game states and decisions are discrete values.
+	- Only a finite number of states and decisions.
+	- No probabilities/chance as a core mechanic (dice rolls).
+	- Both players can see the entire state of the board and each decision is made sequentially.
+	- Ex: Chess, Go, Checkers, etc.
+- Checkers was solved in 2007.
+	- Has roughly $5\times10^{20}$ possibilities.
+	- Perfect games played by both players results in a tie.
+- Solving a game means to:
+	- Determine the optimal strategy for both players, i.e. perfect plays.
+	- Exhaustively analyzing all possible game positions.
+	- Involves proving whether a game ends in a win, loss, or draw from any position on the board.
+- Minimax:
+	- Visualizing a game and moves as a tree where player 1 and player 2 have interweaving decisions (shown as every other level) on the tree.
+		- Agent seeks to maximize output at every decision level.
+		- Opponent seeks to minimize at every decision level, cutting into the Agent's score/cost.
+	- The game theoretic value is also known as the minimax value of a state.
+	- Streaming DFS (implemented as Iterative Deepening Search) serves as a way to quickly retrieve the best move in a time constrained environment 1 level down, 2 levels down, ..., n levels down until the timer runs out. To which it returns the move that provides the best score at the deepest branch.
+		- This ordering of the best moves d levels down allows efficient pruning.
+		- Creates an *anytime* algorithm.
+- Alpha-Beta Pruning
+	- General config (MIN version):
+		- Computing the min value at some node n.
+		- Looping over n's children.
+		- n's estimate of the childrens' min is dropping.
+		- Who cares about n's value? MAX.
+		- Let $\alpha$ be the best value that MAX can get at any choice point along the current path of the root.
+		- If n becomes worse than $\alpha$, we know MAX will avoid it, so we can stop considering n's other children (stop computation).
+	- Good child ordering increases the effectiveness of pruning.
+	- A perfect pruning can double the solvable depth of Minimax.
+- Expecti-Max:
+- Algorithm used when there are randomness (nondeterminism) in the game.
+	- Explicit randomness with rolling dice.
+	- Unpredictable opponents - ghosts are random.
+	- Unpredictable humans - humans are not perfect and have random properties.
+	- Actions can fail.
